@@ -26,18 +26,18 @@ public class TNodoTrie implements INodoTrie {
     }
 
     private int getIndice(char c) {
-        return  c - 'a';
+        return c - 'a';
     }
 
     private void imprimir(String s, TNodoTrie nodo) {
         if (nodo != null) {
             if (nodo.esPalabra) {
                 System.out.println(s);
-                
+
             }
             for (int c = 0; c < CANT_CHR_ABECEDARIO; c++) {
                 if (nodo.hijos[c] != null) {
-                    imprimir(s+(char)(c + 'a'), nodo.hijos[c]);
+                    imprimir(s + (char) (c + 'a'), nodo.hijos[c]);
                 }
             }
         }
@@ -47,7 +47,7 @@ public class TNodoTrie implements INodoTrie {
     public void imprimir() {
         imprimir("", this);
     }
-    
+
     private TNodoTrie buscarNodoTrie(String s) {
         TNodoTrie nodo = this;
         for (int c = 0; c < s.length(); c++) {
@@ -59,12 +59,14 @@ public class TNodoTrie implements INodoTrie {
         }
         return nodo;
     }
-    
+
     /**
-     * Busca una palabra en el trie y devuelve la cantidad de comparaciones realizadas durante la búsqueda.
+     * Busca una palabra en el trie y devuelve la cantidad de comparaciones
+     * realizadas durante la búsqueda.
      *
      * @param s La palabra a buscar dentro del trie.
-     * @return El número de comparaciones realizadas para determinar si la palabra está o no en el trie.
+     * @return El número de comparaciones realizadas para determinar si la palabra
+     *         está o no en el trie.
      */
     @Override
     public int buscar(String s) {
@@ -80,11 +82,29 @@ public class TNodoTrie implements INodoTrie {
         }
         return nodo.esPalabra ? comparaciones : -1;
     }
-	public String  LPM(String s){  
-	
-	}
-	
-	
+
+    public String LPM(String s) {
+        TNodoTrie nodo = buscarNodoTrie(s);
+        if (nodo == null) {
+            return null;
+        }
+        return findLongestWord(nodo, s);
+    }
+
+    private String findLongestWord(TNodoTrie nodo, String s) {
+        String longestWord = nodo.esPalabra ? s : "";
+
+        for (int c = 0; c < CANT_CHR_ABECEDARIO; c++) {
+            if (nodo.hijos[c] != null) {
+                String currentWord = findLongestWord(nodo.hijos[c], s + (char) (c + 'a'));
+                if (currentWord.length() > longestWord.length()) {
+                    longestWord = currentWord;
+                }
+            }
+        }
+        return longestWord;
+    }
+
     private void predecir(String s, LinkedList<String> palabras, TNodoTrie nodo) {
         if (nodo != null) {
             if (nodo.esPalabra) {
@@ -102,8 +122,9 @@ public class TNodoTrie implements INodoTrie {
      * Genera una lista de todas las palabras que contienen el prefijo dado.
      * Las palabras encontradas se agregan a la lista 'palabras'.
      *
-     * @param prefijo El prefijo que se utilizará para buscar palabras en el trie.
-     * @param palabras Lista de strings donde se almacenarán las palabras encontradas que coinciden con el prefijo dado.
+     * @param prefijo  El prefijo que se utilizará para buscar palabras en el trie.
+     * @param palabras Lista de strings donde se almacenarán las palabras
+     *                 encontradas que coinciden con el prefijo dado.
      */
     @Override
     public void predecir(String prefijo, List<String> palabras) {
@@ -112,4 +133,5 @@ public class TNodoTrie implements INodoTrie {
             predecir(prefijo, (LinkedList<String>) palabras, nodo);
         }
     }
+
 }
