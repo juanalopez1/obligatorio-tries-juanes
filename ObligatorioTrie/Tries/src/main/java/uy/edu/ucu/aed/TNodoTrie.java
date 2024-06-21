@@ -88,15 +88,15 @@ public class TNodoTrie implements INodoTrie {
         if (nodo == null) {
             return null;
         }
-        return findLongestWord(nodo, s);
+        return LPMtoRecurse(nodo, s);
     }
 
-    private String findLongestWord(TNodoTrie nodo, String s) {
+    private String LPMtoRecurse(TNodoTrie nodo, String s) {
         String longestWord = nodo.esPalabra ? s : "";
 
         for (int c = 0; c < CANT_CHR_ABECEDARIO; c++) {
             if (nodo.hijos[c] != null) {
-                String currentWord = findLongestWord(nodo.hijos[c], s + (char) (c + 'a'));
+                String currentWord = LPMtoRecurse(nodo.hijos[c], s + (char) (c + 'a'));
                 if (currentWord.length() > longestWord.length()) {
                     longestWord = currentWord;
                 }

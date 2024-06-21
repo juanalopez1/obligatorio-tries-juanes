@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         TArbolTrie trie = new TArbolTrie();
 
-        String[] palabrasclave = { "are", "area", "base", "cat", "ju", "juanaaaaaaaaa", "jujix", "cater", "children",
+        String[] palabrasclave = { "are", "area", "base", "cat", "ju", "juanaaaa", "jujix", "cater", "children",
                 "basement",
                 "areas", "jean" };
         for (String p : palabrasclave) {
