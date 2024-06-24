@@ -50,7 +50,7 @@ public class TNodoTrieTest {
     }
 
     @Test
-    public void testLPMempiezaComoEstaPeroNoesta() {
+    public void testLPMempiezaComoQueEstaPeroNoesta() {
         TArbolTrie trie = new TArbolTrie();
 
         String[] palabrasclave = { "are", "area", "base", "cat", "ju", "juan", "jujix", "cater", "children",
