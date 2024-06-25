@@ -83,25 +83,24 @@ public class TNodoTrie implements INodoTrie {
         return nodo.esPalabra ? comparaciones : -1;
     }
 
+    @Override
     public String LPM(String s) {
-        TNodoTrie nodo = buscarNodoTrie(s);
-        if (nodo == null) {
-            return null;
-        }
-        return LPMtoRecurse(nodo, s);
-    }
+        TNodoTrie node = this;
+        String longestWord = "";
+        String currentWord = "";
 
-    private String LPMtoRecurse(TNodoTrie nodo, String s) {
-        String longestWord = nodo.esPalabra ? s : "";
-
-        for (int c = 0; c < CANT_CHR_ABECEDARIO; c++) {
-            if (nodo.hijos[c] != null) {
-                String currentWord = LPMtoRecurse(nodo.hijos[c], s + (char) (c + 'a'));
-                if (currentWord.length() > longestWord.length()) {
-                    longestWord = currentWord;
-                }
+        for (int i = 0; i < s.length(); i++) {
+            int index = getIndice(s.charAt(i));
+            if (node.hijos[index] == null) {
+                return longestWord;
+            }
+            node = node.hijos[index];
+            currentWord += s.charAt(i);
+            if (node.esPalabra) {
+                longestWord = currentWord;
             }
         }
+
         return longestWord;
     }
 
