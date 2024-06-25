@@ -28,7 +28,7 @@ public class TNodoTrieTest {
             trie.insertar(p);
         }
 
-        String expected = null;
+        String expected = "";
         String result = trie.raiz.LPM("papa");
         assertEquals(expected, result);
     }
@@ -37,31 +37,30 @@ public class TNodoTrieTest {
     public void testLPMwordInTrie() {
         TArbolTrie trie = new TArbolTrie();
 
-        String[] palabrasclave = { "are", "area", "base", "cat", "ju", "juan", "jujix", "cater", "children",
+        String[] palabrasclave = { "are", "area", "baseme", "base", "cat", "ju", "juan", "jujixxxxx", "cater",
+                "children",
                 "basement",
                 "areas", "jean" };
         for (String p : palabrasclave) {
             trie.insertar(p);
         }
 
-        String expected = "areas";
-        String result = trie.raiz.LPM("ar");
+        String expected = "baseme";
+        String result = trie.raiz.LPM("basemexy");
         assertEquals(expected, result);
     }
 
     @Test
-    public void testLPMempiezaComoQueEstaPeroNoesta() {
+    public void testLPMemptyString() {
         TArbolTrie trie = new TArbolTrie();
 
-        String[] palabrasclave = { "are", "area", "base", "cat", "ju", "juan", "jujix", "cater", "children",
-                "basement",
-                "areas", "jean" };
+        String[] palabrasclave = { "are", "area", "base", "cat", "cater", "children", "basement", "areas" };
         for (String p : palabrasclave) {
             trie.insertar(p);
         }
 
-        String expected = null;
-        String result = trie.raiz.LPM("arbo");
+        String expected = "";
+        String result = trie.raiz.LPM("");
         assertEquals(expected, result);
     }
 
